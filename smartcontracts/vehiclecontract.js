@@ -9,9 +9,9 @@ class VehicleContract extends Contract {
         const vehicles = [
             {
                 vehicleNumber: 'MH-12-1234',
-                owner: 'Raj',
-                make: 'Maruti',
-                model: 'Swift',
+                owner: 'Jenny',
+                make: 'Honda',
+                model: 'Accord',
                 color: 'Red',
                 year: '2019',
                 price: '500000'
@@ -28,19 +28,19 @@ class VehicleContract extends Contract {
             {
                 vehicleNumber: 'MH-12-9012',
                 owner: 'Ravi',
-                make: 'Honda',
-                model: 'City',
+                make: 'Kia',
+                model: 'Sorento',
                 color: 'White',
                 year: '2017',
                 price: '700000'
             },
             {
                 vehicleNumber: 'MH-12-3456',
-                owner: 'Rohan',
+                owner: 'Margiory',
                 make: 'Toyota',
-                model: 'Innova',
+                model: 'Corolla',
                 color: 'Black',
-                year: '2016',
+                year: '2023',
                 price: '800000'
             },
             {
