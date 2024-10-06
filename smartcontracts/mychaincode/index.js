@@ -1,11 +1,7 @@
 'use strict';
 
-// Import the contract class from your vehicle contract file
-const VehicleContract = require('./vehicleContract');
+const VehicleContract = require('./lib/vehicleContract');
 
-// Import the Fabric Contract API
-const { Contract } = require('fabric-contract-api');
-
-// Create a new instance of the VehicleContract
-module.exports.VehicleContract = VehicleContract;
+const _VehicleContract = VehicleContract;
+module.exports.VehicleContract = _VehicleContract;
 module.exports.contracts = [VehicleContract];

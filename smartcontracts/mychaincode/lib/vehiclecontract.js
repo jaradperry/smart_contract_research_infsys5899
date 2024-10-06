@@ -1,11 +1,13 @@
 'use strict';
 
+// Deterministic JSON.stringify()
+const stringify  = require('json-stringify-deterministic');
+const sortKeysRecursive  = require('sort-keys-recursive');
 const { Contract } = require('fabric-contract-api');
 
 class VehicleContract extends Contract {
 
-    async initLedger(ctx) {
-        console.info('============= START : Initialize Ledger ===========');
+    async InitLedger(ctx) {
         const vehicles = [
             {
                 vehicleNumber: 'MH-12-1234',
@@ -54,19 +56,97 @@ class VehicleContract extends Contract {
             },
         ];
 
-        for (let i = 0; i < vehicles.length; i++) {
-            vehicles[i].docType = 'vehicle';
-            try {
-                await ctx.stub.putState(vehicles[i].vehicleNumber, Buffer.from(JSON.stringify(vehicles[i])));
-                console.info('Added <--> ', vehicles[i]);
-            } catch (error) {
-                console.error(`Failed to put state for vehicle ${vehicles[i].vehicleNumber}: ${error}`);
-            }
+        for (const vehicle of vehicles) {
+            vehicle.docType = 'vehicle';
+            await ctx.stub.putState(vehicle.vehicleNumber, Buffer.from(stringify(sortKeysRecursive(vehicle))));
+        }
+    }
+
+    async CreateVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
+        const exists = await this.VehicleExists(ctx, vehicleNumber);
+        if (exists) {
+            throw new Error(`The vehicle ${vehicleNumber} already exists`);
         }
 
-        console.info('============= END : Initialize Ledger ===========');
+        const vehicle = {
+            vehicleNumber,
+            owner,
+            make,
+            model,
+            color,
+            year,
+            price
+        };
+        await ctx.stub.putState(vehicleNumber, Buffer.from(stringify(sortKeysRecursive(vehicle))));
+        return JSON.stringify(vehicle);
+    }
+
+    async ReadVehicle(ctx, vehicleNumber) {
+        const vehicleJSON = await ctx.stub.getState(vehicleNumber);
+        if (!vehicleJSON || vehicleJSON.length === 0) {
+            throw new Error(`The vehicle ${vehicleNumber} does not exist`);
+        }
+        return vehicleJSON.toString();
+    }
+
+    async UpdateVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
+        const exists = await this.VehicleExists(ctx, vehicleNumber);
+        if (!exists) {
+            throw new Error(`The vehicle ${vehicleNumber} does not exist`);
+        }
+
+        const updatedVehicle = {
+            vehicleNumber,
+            owner,
+            make,
+            model,
+            color,
+            year,
+            price
+        };
+        return ctx.stub.putState(vehicleNumber, Buffer.from(stringify(sortKeysRecursive(updatedVehicle))));
+    }
+
+    async DeleteVehicle(ctx, vehicleNumber) {
+        const exists = await this.VehicleExists(ctx, vehicleNumber);
+        if (!exists) {
+            throw new Error(`The vehicle ${vehicleNumber} does not exist`);
+        }
+        return ctx.stub.deleteState(vehicleNumber);
+    }
+
+    async VehicleExists(ctx, vehicleNumber) {
+        const vehicleJSON = await ctx.stub.getState(vehicleNumber);
+        return vehicleJSON && vehicleJSON.length > 0;
+    }
+
+    async TransferVehicle(ctx, vehicleNumber, newOwner) {
+        const vehicleString = await this.ReadVehicle(ctx, vehicleNumber);
+        const vehicle = JSON.parse(vehicleString);
+        const oldOwner = vehicle.owner;
+        vehicle.owner = newOwner;
+        await ctx.stub.putState(vehicleNumber, Buffer.from(stringify(sortKeysRecursive(vehicle))));
+        return oldOwner;
+    }
+
+    async GetAllVehicles(ctx) {
+        const allResults = [];
+        const iterator = await ctx.stub.getStateByRange('', '');
+        let result = await iterator.next();
+        while (!result.done) {
+            const strValue = Buffer.from(result.value.value.toString()).toString('utf8');
+            let record;
+            try {
+                record = JSON.parse(strValue);
+            } catch (err) {
+                console.log(err);
+                record = strValue;
+            }
+            allResults.push(record);
+            result = await iterator.next();
+        }
+        return JSON.stringify(allResults);
     }
 }
 
-// Export the contract class
 module.exports = VehicleContract;

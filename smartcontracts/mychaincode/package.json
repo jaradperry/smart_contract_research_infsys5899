@@ -1,24 +1,23 @@
 {
   "name": "vehicle-contract",
   "version": "1.0.0",
-  "description": "A smart contract for managing vehicle records on Hyperledger Fabric.",
+  "description": "Hyperledger Fabric Vehicle Smart Contract",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "lint": "eslint .",
+    "test": "mocha --recursive"
   },
+  "author": "Your Name",
+  "license": "Apache-2.0",
   "dependencies": {
-    "fabric-contract-api": "^2.2.0",
-    "fabric-shim": "^2.2.0"
+    "fabric-contract-api": "^2.4.0",
+    "fabric-shim": "^2.4.0",
+    "json-stringify-deterministic": "^1.0.1",
+    "sort-keys-recursive": "^0.1.0"
   },
   "devDependencies": {
-    "eslint": "^8.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "chai": "^4.2.0",
+    "mocha": "^8.2.0",
+    "eslint": "^7.10.0"
   }
-
-  
 }
-
-  
