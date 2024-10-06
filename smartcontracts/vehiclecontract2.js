@@ -73,5 +73,19 @@ class VehicleContract extends Contract {
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         console.info('============= START : Create ===========');
+        const vehicle = {
+            vehicleNumber,
+            owner,
+            make,
+            model,
+            color,
+            year,
+            price,
+            docType: 'vehicle'
+        };
+
+        await ctx.stub.putState(vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
+        console.info('============= END : Create ===========');
+        return JSON.stringify(vehicle);
     }
 }
