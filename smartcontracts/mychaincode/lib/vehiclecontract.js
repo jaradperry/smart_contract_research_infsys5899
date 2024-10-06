@@ -4,7 +4,7 @@ const { Contract } = require('fabric-contract-api');
 
 class VehicleContract extends Contract {
 
-    async InitLedger(ctx) {
+    async initLedger(ctx) {
         console.info('============= START : Initialize Ledger ===========');
         const vehicles = [
             {
