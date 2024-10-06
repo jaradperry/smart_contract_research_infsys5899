@@ -1,14 +1,24 @@
 {
-    "name": "mychaincode",
-    "version": "1.0.0",
-    "description": "Chaincode for two smart contracts",
-    "main": "index.js",
-    "scripts": {
-      "start": "fabric-chaincode-node start"
-    },
-    "dependencies": {
-      "fabric-shim": "^2.2.0",
-      "fabric-contract-api": "^2.2.0"
-    }
+  "name": "vehicle-contract",
+  "version": "1.0.0",
+  "description": "A smart contract for managing vehicle records on Hyperledger Fabric.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.2.0",
+    "fabric-shim": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
+
+  
+}
+
   
