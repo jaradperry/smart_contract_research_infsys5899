@@ -56,9 +56,14 @@ class VehicleContract extends Contract {
 
         for (let i = 0; i < vehicles.length; i++) {
             vehicles[i].docType = 'vehicle';
-            await ctx.stub.putState(vehicles[i].vehicleNumber, Buffer.from(JSON.stringify(vehicles[i])));
-            console.info('Added <--> ', vehicles[i]);
+            try {
+                await ctx.stub.putState(vehicles[i].vehicleNumber, Buffer.from(JSON.stringify(vehicles[i])));
+                console.info('Added <--> ', vehicles[i]);
+            } catch (error) {
+                console.error(`Failed to put state for vehicle ${vehicles[i].vehicleNumber}: ${error}`);
+            }
         }
+
         console.info('============= END : Initialize Ledger ===========');
     }
 }
