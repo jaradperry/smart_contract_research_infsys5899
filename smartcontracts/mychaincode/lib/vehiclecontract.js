@@ -58,20 +58,8 @@ class VehicleContract extends Contract {
             vehicles[i].docType = 'vehicle';
             await ctx.stub.putState(vehicles[i].vehicleNumber, Buffer.from(JSON.stringify(vehicles[i])));
             console.info('Added <--> ', vehicles[i]);
+            }
+            console.info('============= END : Initialize Ledger ===========');
         }
-        console.info('============= END : Initialize Ledger ===========');
+        
     }
-
-    async queryVehicle(ctx, vehicleNumber) {
-        const vehicleAsBytes = await ctx.stub.getState(vehicleNumber); // get the vehicle from chaincode state
-        if (!vehicleAsBytes || vehicleAsBytes.length === 0) {
-            throw new Error(`${vehicleNumber} does not exist`);
-        }
-        console.log(vehicleAsBytes.toString());
-        return vehicleAsBytes.toString();
-    }
-
-    async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
-        console.info('============= START : Create ===========');
-    }
-}
