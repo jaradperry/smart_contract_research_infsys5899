@@ -58,8 +58,10 @@ class VehicleContract extends Contract {
             vehicles[i].docType = 'vehicle';
             await ctx.stub.putState(vehicles[i].vehicleNumber, Buffer.from(JSON.stringify(vehicles[i])));
             console.info('Added <--> ', vehicles[i]);
-            }
-            console.info('============= END : Initialize Ledger ===========');
         }
-        
+        console.info('============= END : Initialize Ledger ===========');
     }
+}
+
+// Export the contract class
+module.exports = VehicleContract;
