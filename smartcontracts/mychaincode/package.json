@@ -1,23 +1,15 @@
 {
-  "name": "vehicle-contract",
+  "name": "vehiclecontract",
   "version": "1.0.0",
-  "description": "Hyperledger Fabric Vehicle Smart Contract",
+  "description": "Vehicle contract",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "test": "mocha --recursive"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Your Name",
-  "license": "Apache-2.0",
   "dependencies": {
-    "fabric-contract-api": "^2.4.0",
-    "fabric-shim": "^2.4.0",
+    "fabric-contract-api": "^2.0.0",
     "json-stringify-deterministic": "^1.0.1",
     "sort-keys-recursive": "^1.0.0"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.2.0",
-    "eslint": "^7.10.0"
   }
 }
