@@ -1,6 +1,6 @@
 'use strict';
 
-const VehicleContract = require('./lib/vehicleContract');
+const VehicleContract = require('./lib/vehiclecontract');
 
 const _VehicleContract = VehicleContract;
 module.exports.VehicleContract = _VehicleContract;
