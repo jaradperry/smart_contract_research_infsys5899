@@ -1,15 +1,21 @@
 {
   "name": "vehicle-contract",
   "version": "1.0.0",
-  "description": "Vehicle Chaincode for Hyperledger Fabric",
-  "main": "vehicleContract.js",
+  "description": "Hyperledger Fabric vehicle contract chaincode",
+  "main": "index.js",  
   "scripts": {
-    "start": "node vehicleContract.js"
+    "start": "fabric-chaincode-node start"
   },
+  "author": "Your Name",
+  "license": "Apache-2.0",
   "dependencies": {
     "fabric-contract-api": "^2.4.0",
     "fabric-shim": "^2.4.0",
     "json-stringify-deterministic": "^1.0.1",
-    "sort-keys-recursive": "^1.0.0"
+    "sort-keys-recursive": "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.0",
+    "chai": "^4.2.0"
   }
 }
