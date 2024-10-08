@@ -12,7 +12,8 @@
     "fabric-contract-api": "^2.4.0",
     "fabric-shim": "^2.4.0",
     "json-stringify-deterministic": "^1.0.1",
-    "sort-keys-recursive": "^1.0.1"
+    "sort-keys-recursive": "^1.0.1",
+    "fabric-chaincode-node": "^2.5.0"
   },
   "devDependencies": {
     "mocha": "^8.0.0",
