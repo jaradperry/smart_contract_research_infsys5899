@@ -1,14 +1,14 @@
 {
-  "name": "vehiclecontract",
+  "name": "vehicle-contract",
   "version": "1.0.0",
-  "description": "Vehicle contract",
-  "main": "index.js",
+  "description": "Vehicle Chaincode for Hyperledger Fabric",
+  "main": "vehicleContract.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node vehicleContract.js"
   },
   "dependencies": {
-    "fabric-contract-api": "^2.0.0",
+    "fabric-contract-api": "^2.4.0",
+    "fabric-shim": "^2.4.0",
     "json-stringify-deterministic": "^1.0.1",
     "sort-keys-recursive": "^1.0.0"
   }
