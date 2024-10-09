@@ -1,6 +1,6 @@
 'use strict';
 
-const VehicleContract = require('./lib/vehicleContract');
+const VehicleContract = require('./vehicleContract');
 
 // Import the Fabric Contract API start function
 require('fabric-contract-api');
