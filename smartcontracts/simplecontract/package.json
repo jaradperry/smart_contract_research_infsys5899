@@ -4,15 +4,14 @@
     "description": "A smart contract for managing vehicle records on Hyperledger Fabric.",
     "main": "index.js",
     "scripts": {
-      "start": "fabric-chaincode-node start"
+        "start": "fabric-chaincode-node start"
     },
     "dependencies": {
-      "fabric-contract-api": "^2.5.7",
-      "fabric-shim": "^2.5.7"
+	"fabric-contract-api": "^2.5.7",
+        "fabric-shim": "^2.5.7"
     },
     "engines": {
-      "node": ">=18.0.0"
+        "node": ">=18.0.0"
     },
     "license": "Apache-2.0"
-  }
-  
+}

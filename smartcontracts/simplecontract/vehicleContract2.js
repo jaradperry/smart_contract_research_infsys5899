@@ -89,3 +89,6 @@ class VehicleContract extends Contract {
         return JSON.stringify(vehicle);
     }
 }
+
+// Export the VehicleContract class
+module.exports = VehicleContract;
