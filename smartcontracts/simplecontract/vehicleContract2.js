@@ -73,16 +73,15 @@ class VehicleContract extends Contract {
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         console.info('============= START : Create ===========');
-
         // Simulate user input for vehicle information
         const vehicleInfo = {
-            vehicleNumber: vehicleNumber || prompt('Enter vehicle number: '),
-            owner: owner || prompt('Enter owner name: '),
-            make: make || prompt('Enter vehicle make: '),
-            model: model || prompt('Enter vehicle model: '),
-            color: color || prompt('Enter vehicle color: '),
-            year: year || prompt('Enter vehicle year: '),
-            price: price || prompt('Enter vehicle price: ')
+            vehicleNumber: vehicleNumber,
+            owner: owner,
+            make: make,
+            model: model,
+            color: color,
+            year: year,
+            price: price
         };
 
         vehicleNumber = vehicleInfo.vehicleNumber;
