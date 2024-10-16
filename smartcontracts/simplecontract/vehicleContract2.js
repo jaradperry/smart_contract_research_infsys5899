@@ -73,6 +73,25 @@ class VehicleContract extends Contract {
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         console.info('============= START : Create ===========');
+
+        // Simulate user input for vehicle information
+        const vehicleInfo = {
+            vehicleNumber: vehicleNumber || prompt('Enter vehicle number: '),
+            owner: owner || prompt('Enter owner name: '),
+            make: make || prompt('Enter vehicle make: '),
+            model: model || prompt('Enter vehicle model: '),
+            color: color || prompt('Enter vehicle color: '),
+            year: year || prompt('Enter vehicle year: '),
+            price: price || prompt('Enter vehicle price: ')
+        };
+
+        vehicleNumber = vehicleInfo.vehicleNumber;
+        owner = vehicleInfo.owner;
+        make = vehicleInfo.make;
+        model = vehicleInfo.model;
+        color = vehicleInfo.color;
+        year = vehicleInfo.year;
+        price = vehicleInfo.price;
         const allowedMakes = ['Honda', 'Hyundai', 'Kia', 'Toyota'];
         if (!allowedMakes.includes(make)) {
             throw new Error('Invalid vehicle: Only Honda, Hyundai, Kia, or Toyota allowed.');
