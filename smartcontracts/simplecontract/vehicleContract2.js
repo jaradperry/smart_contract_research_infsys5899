@@ -46,8 +46,8 @@ class VehicleContract extends Contract {
             {
                 vehicleNumber: 'MH-12-7890',
                 owner: 'Rakesh',
-                make: 'Ford',
-                model: 'Ecosport',
+                make: 'Toyota',
+                model: 'Corolla',
                 color: 'Silver',
                 year: '2015',
                 price: '900000'
@@ -73,6 +73,11 @@ class VehicleContract extends Contract {
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         console.info('============= START : Create ===========');
+        const allowedMakes = ['Honda', 'Hyundai', 'Kia', 'Toyota'];
+        if (!allowedMakes.includes(make)) {
+            throw new Error('Invalid vehicle: Only Honda, Hyundai, Kia, or Toyota allowed.');
+        }
+
         const vehicle = {
             vehicleNumber,
             owner,
@@ -85,6 +90,7 @@ class VehicleContract extends Contract {
         };
 
         await ctx.stub.putState(vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
+        console.info(`Vehicle ${vehicleNumber} created with owner ${owner}, make ${make}, model ${model}, color ${color}, year ${year}, and price ${price}`);
         console.info('============= END : Create ===========');
         return JSON.stringify(vehicle);
     }
