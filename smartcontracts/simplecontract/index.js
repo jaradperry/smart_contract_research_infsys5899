@@ -1,5 +1,5 @@
 'use strict';
 
-const VehicleContract = require('./vehicleContract2'); // Adjust the path if necessary
+const VehicleContract = require('./vehicleContract2');
 
 module.exports.contracts = [ VehicleContract ];
