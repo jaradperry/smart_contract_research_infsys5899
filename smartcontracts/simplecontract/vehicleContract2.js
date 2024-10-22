@@ -68,29 +68,7 @@ class VehicleContract extends Contract {
     }
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
-        console.info('============= START : Create ===========');
-        
-        // Simulate user input for vehicle information
-        const vehicleInfo = vehicleFunctions._simulateVehicleInput({
-            vehicleNumber, owner, make, model, color, year, price
-        });
-
-        vehicleFunctions._validateVehicleMake(vehicleInfo.make);
-
-        const vehicle = vehicleFunctions._createVehicleObject(
-            vehicleInfo.vehicleNumber,
-            vehicleInfo.owner,
-            vehicleInfo.make,
-            vehicleInfo.model,
-            vehicleInfo.color,
-            vehicleInfo.year,
-            vehicleInfo.price
-        );
-
-        await ctx.stub.putState(vehicle.vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
-        console.info(`Vehicle ${vehicleNumber} created with owner ${owner}, make ${make}, model ${model}, color ${color}, year ${year}, and price ${price}`);
-        console.info('============= END : Create ===========');
-        return JSON.stringify(vehicle);
+        return await vehicleFunctions._createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price);
     }
 }
 
