@@ -1,6 +1,7 @@
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
+const vehicleFunctions = require('./vehicleFunctions');
 
 class VehicleContract extends Contract {
 
@@ -63,56 +64,34 @@ class VehicleContract extends Contract {
     }
 
     async queryVehicle(ctx, vehicleNumber) {
-        const vehicleAsBytes = await ctx.stub.getState(vehicleNumber); // get the vehicle from chaincode state
-        if (!vehicleAsBytes || vehicleAsBytes.length === 0) {
-            throw new Error(`${vehicleNumber} does not exist`);
-        }
-        console.log(vehicleAsBytes.toString());
-        return vehicleAsBytes.toString();
+        return await vehicleFunctions._queryVehicle(ctx, vehicleNumber);
     }
 
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         console.info('============= START : Create ===========');
+        
         // Simulate user input for vehicle information
-        const vehicleInfo = {
-            vehicleNumber: vehicleNumber,
-            owner: owner,
-            make: make,
-            model: model,
-            color: color,
-            year: year,
-            price: price
-        };
+        const vehicleInfo = vehicleFunctions._simulateVehicleInput({
+            vehicleNumber, owner, make, model, color, year, price
+        });
 
-        vehicleNumber = vehicleInfo.vehicleNumber;
-        owner = vehicleInfo.owner;
-        make = vehicleInfo.make;
-        model = vehicleInfo.model;
-        color = vehicleInfo.color;
-        year = vehicleInfo.year;
-        price = vehicleInfo.price;
-        const allowedMakes = ['Honda', 'Hyundai', 'Kia', 'Toyota'];
-        if (!allowedMakes.includes(make)) {
-            throw new Error('Invalid vehicle: Only Honda, Hyundai, Kia, or Toyota allowed.');
-        }
+        vehicleFunctions._validateVehicleMake(vehicleInfo.make);
 
-        const vehicle = {
-            vehicleNumber,
-            owner,
-            make,
-            model,
-            color,
-            year,
-            price,
-            docType: 'vehicle'
-        };
+        const vehicle = vehicleFunctions._createVehicleObject(
+            vehicleInfo.vehicleNumber,
+            vehicleInfo.owner,
+            vehicleInfo.make,
+            vehicleInfo.model,
+            vehicleInfo.color,
+            vehicleInfo.year,
+            vehicleInfo.price
+        );
 
-        await ctx.stub.putState(vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
+        await ctx.stub.putState(vehicle.vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
         console.info(`Vehicle ${vehicleNumber} created with owner ${owner}, make ${make}, model ${model}, color ${color}, year ${year}, and price ${price}`);
         console.info('============= END : Create ===========');
         return JSON.stringify(vehicle);
     }
 }
 
-// Export the VehicleContract class
 module.exports = VehicleContract;
