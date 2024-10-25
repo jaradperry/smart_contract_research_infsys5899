@@ -10,7 +10,37 @@ async function _queryVehicle(ctx, vehicleNumber) {
     }
     return vehicleAsBytes.toString();
 }
+async function _modifyVehicle(ctx, vehicleNumber, newOwner, newMake, newModel, newColor, newYear, newPrice) {
+    const clientIdentity = ctx.clientIdentity;
+    const mspId = clientIdentity.getMSPID();
 
+    // Ensure only Org1MSP can call this function
+    if (mspId !== 'Org1MSP') {
+        throw new Error('Unauthorized access: Only Org1MSP can modify vehicles.');
+    }
+
+    console.info('============= START : Modify Vehicle ===========');
+
+    const vehicleAsBytes = await ctx.stub.getState(vehicleNumber);
+    if (!vehicleAsBytes || vehicleAsBytes.length === 0) {
+        throw new Error(`The vehicle ${vehicleNumber} does not exist`);
+    }
+
+    const vehicle = JSON.parse(vehicleAsBytes.toString());
+
+    // Update vehicle properties
+    vehicle.owner = newOwner || vehicle.owner;
+    vehicle.make = newMake || vehicle.make;
+    vehicle.model = newModel || vehicle.model;
+    vehicle.color = newColor || vehicle.color;
+    vehicle.year = newYear || vehicle.year;
+    vehicle.price = newPrice || vehicle.price;
+
+    await ctx.stub.putState(vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
+    console.info(`Vehicle ${vehicleNumber} modified with new owner ${newOwner}, make ${newMake}, model ${newModel}, color ${newColor}, year ${newYear}, and price ${newPrice}`);
+    console.info('============= END : Modify Vehicle ===========');
+    return JSON.stringify(vehicle);
+}
 function _simulateVehicleInput(vehicleInfo) {
     // Simulate user input; you can adjust this according to your needs
     return vehicleInfo;

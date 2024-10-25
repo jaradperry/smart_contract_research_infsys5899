@@ -70,6 +70,12 @@ class VehicleContract extends Contract {
     async createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
         return await vehicleFunctions._createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price);
     }
+
+    async modifyVehicle(ctx, vehicleNumber, newOwner, newColor, newPrice) {
+        return await vehicleFunctions._modifyVehicle(ctx, vehicleNumber, newOwner, newColor, newPrice);
+    }
+
 }
 
 module.exports = VehicleContract;
+
