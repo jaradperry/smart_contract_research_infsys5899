@@ -11,7 +11,7 @@ async function _queryVehicle(ctx, vehicleNumber) {
     return vehicleAsBytes.toString();
 }
 async function _modifyVehicle(ctx, vehicleNumber, newOwner, newMake, newModel, newColor, newYear, newPrice) {
-    const vehicleAsBytes = await ctx.stub.getState(vehicleNumber); // get the vehicle from chaincode state
+    const vehicleAsBytes = await ctx.stub.getState(vehicleNumber); // Get the vehicle from the chaincode state
     if (!vehicleAsBytes || vehicleAsBytes.length === 0) {
         throw new Error(`The vehicle ${vehicleNumber} does not exist`);
     }
@@ -21,15 +21,16 @@ async function _modifyVehicle(ctx, vehicleNumber, newOwner, newMake, newModel, n
     // Update vehicle properties
     vehicle.owner = newOwner || vehicle.owner;
     vehicle.make = newMake || vehicle.make;
-    vehicle.model = newModel || vehicle.model;
+    vehicle.model = newModel || vehicle.model; // Use newModel to update the model
     vehicle.color = newColor || vehicle.color;
-    vehicle.year = newYear || vehicle.year;
+    vehicle.year = newYear || vehicle.year;   // Use newYear to update the year
     vehicle.price = newPrice || vehicle.price;
 
     await ctx.stub.putState(vehicleNumber, Buffer.from(JSON.stringify(vehicle)));
     console.info(`Vehicle ${vehicleNumber} modified with new owner ${newOwner}, make ${newMake}, model ${newModel}, color ${newColor}, year ${newYear}, and price ${newPrice}`);
     return JSON.stringify(vehicle);
 }
+
 
 function _simulateVehicleInput(vehicleInfo) {
     // Simulate user input; you can adjust this according to your needs
