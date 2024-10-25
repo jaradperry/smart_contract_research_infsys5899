@@ -71,9 +71,9 @@ class VehicleContract extends Contract {
         return await vehicleFunctions._createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price);
     }
 
-    async modifyVehicle(ctx, vehicleNumber, newOwner, newColor, newPrice) {
-        return await vehicleFunctions._modifyVehicle(ctx, vehicleNumber, newOwner, newColor, newPrice);
-    }
+    async modifyVehicle(ctx, vehicleNumber, newOwner, _newModel, newColor, _newYear, newPrice) {
+        return await vehicleFunctions._modifyVehicle(ctx, vehicleNumber, newOwner, _newModel, newColor, _newYear, newPrice);
+}
 
 }
 
