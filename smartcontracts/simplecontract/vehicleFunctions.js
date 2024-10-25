@@ -11,6 +11,14 @@ async function _queryVehicle(ctx, vehicleNumber) {
     return vehicleAsBytes.toString();
 }
 async function _modifyVehicle(ctx, vehicleNumber, newOwner, newMake, newModel, newColor, newYear, newPrice) {
+    const clientIdentity = ctx.clientIdentity;
+    const mspId = clientIdentity.getMSPID();
+
+    // Ensure only Org1MSP can call this function
+    if (mspId !== 'Org1MSP') {
+        throw new Error('Unauthorized access: Only Org1MSP can modify vehicles.');
+    }
+
     const vehicleAsBytes = await ctx.stub.getState(vehicleNumber); // Get the vehicle from the chaincode state
     if (!vehicleAsBytes || vehicleAsBytes.length === 0) {
         throw new Error(`The vehicle ${vehicleNumber} does not exist`);
