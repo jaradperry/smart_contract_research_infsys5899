@@ -57,14 +57,14 @@ function _createVehicleObject(vehicleNumber, owner, make, model, color, year, pr
     return { vehicleNumber, owner, make, model, color, year, price, docType: 'vehicle' };
 }
 
-// Create a private function that only Org1MSP can use
+// Create a private function that only Org1MSP and Org3MSP can use
 async function _createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
     const clientIdentity = ctx.clientIdentity;
     const mspId = clientIdentity.getMSPID();
 
     // Ensure only Org1MSP can call this function
-    if (mspId !== 'Org1MSP') {
-        throw new Error('Unauthorized access: Only Org1MSP can create vehicles.');
+    if (mspId !== 'Org1MSP' && mspId !== 'Org3MSP') {
+        throw new Error('Unauthorized access: Only Org1MSP and Org3MSP can create vehicles.');
     }
 
     console.info('============= START : Create ===========');
