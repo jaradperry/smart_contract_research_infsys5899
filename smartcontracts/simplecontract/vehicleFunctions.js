@@ -63,8 +63,8 @@ async function _createVehicle(ctx, vehicleNumber, owner, make, model, color, yea
     const mspId = clientIdentity.getMSPID();
 
     // Ensure only Org1MSP can call this function
-    if (mspId !== 'Org1MSP' && mspId !== 'Org3MSP') {
-        throw new Error('Unauthorized access: Only Org1MSP and Org3MSP can create vehicles.');
+    if (mspId !== 'Org1MSP') {
+        throw new Error('Unauthorized access: Only Org1MSP can create vehicles.');
     }
 
     console.info('============= START : Create ===========');
