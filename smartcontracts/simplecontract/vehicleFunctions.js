@@ -49,7 +49,7 @@ function _validateVehicleMake(make) {
     // Implement your make validation logic here
     const validMakes = ['Honda', 'Hyundai', 'Kia', 'Toyota'];
     if (!validMakes.includes(make)) {
-        throw new Error(`Invalid vehicle make: ${make}`);
+        throw new Error(`Invalid vehicle make: ${make} only ${validMakes} are allowed.`);
     }
 }
 
