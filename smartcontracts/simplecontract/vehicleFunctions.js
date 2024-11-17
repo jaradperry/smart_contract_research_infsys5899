@@ -57,7 +57,7 @@ function _createVehicleObject(vehicleNumber, owner, make, model, color, year, pr
     return { vehicleNumber, owner, make, model, color, year, price, docType: 'vehicle' };
 }
 
-// Create a private function that only Org1MSP and Org3MSP can use
+// Create a private function that only Org1MSP can call
 async function _createVehicle(ctx, vehicleNumber, owner, make, model, color, year, price) {
     const clientIdentity = ctx.clientIdentity;
     const mspId = clientIdentity.getMSPID();
